@@ -1,6 +1,9 @@
 /*
  TO RUN THIS EXAMPLE YOU MUST OPEN THIS FOLDER IN TERMINAL THEN RUN THE FOLLOWING COMMAND
  echo saljdsaljdalsjlajsdlkajsdlakjdslakjda | node consumingReadStreams.js
+
+ For some extra fun run:
+ node ./funExamples/readablePokedex.js | node consumingReadStreams.js
  */
 
 // Consuming a Readable Stream

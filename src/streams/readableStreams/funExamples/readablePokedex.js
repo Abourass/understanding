@@ -1,29 +1,19 @@
 // Readable Streams
 // Readable Streams produce data that can be fed into a writeable, transform, or duplex stream by calling .pipe() -> readableStream.pipe(dst)
 const Readable = require('stream').Readable;
-
-const cli = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 const nerds = require('nerds');
 
-const buildDex = async(entries) => { return nerds.resolve('Pokemon', entries).asArray(); };
+const pokedex = nerds.resolve('Pokemon', 10).asArray();
+const dexStream = new Readable;
 
-cli.question('How many entries do you want in your pokedex?  ', async(amount) => {
-  const pokedex = await buildDex(parseInt(amount, 10));
-
-  const dexStream = new Readable;
-  let count = 0;
-  dexStream._read = function() {
-    if (count >= pokedex.length){return dexStream.push(null)}
-    setTimeout(function () {
-      dexStream.push(`\n ${count + 1}/${amount}: ${JSON.stringify(pokedex[count], null, 2)}`);
-      count++
-    }, 1200);
-  };
-  dexStream.pipe(process.stdout);
-  process.exit();
-});
+let count = 0;
+dexStream._read = function() {
+  if (count >= pokedex.length){return dexStream.push(null)}
+  setTimeout(function () {
+    dexStream.push(`\n ${count + 1}/10: ${JSON.stringify(pokedex[count], null, 2)}`);
+    count++
+  }, 200);
+};
+dexStream.pipe(process.stdout);
 
 
