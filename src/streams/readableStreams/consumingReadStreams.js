@@ -50,3 +50,5 @@ process.stdin.on('readable', function () {
     process.stdin.read(0)
 });
  */
+
+// Now our code works as expected in 3-byte chunks! Next lets try to optimize this process a bit
