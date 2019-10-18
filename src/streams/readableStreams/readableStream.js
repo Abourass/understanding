@@ -45,8 +45,6 @@ delayStream.pipe(process.stdout);
 // These extra complications are necessary when interfacing with the external operating system pipes but are automatic when we interface directly with node streams the whole time.
 // If you want to create a readable stream that pushes arbitrary values instead of just strings and buffers, make sure to create your readable stream with Readable({ objectMode: true }).
 
-// Consuming a Readable Stream
-
 process.on('exit', function() {
   console.error('\n_read() called ' + (delayedCount - 97) + ' times');
 });
