@@ -8,7 +8,7 @@ const cli = require('readline').createInterface({
 
 const fs = require('fs');
 const nerds = require('nerds');
-/*
+
 const readableStream = new Readable;
 readableStream.push('beep ');
 readableStream.push('boop \n');
@@ -46,8 +46,6 @@ delayStream._read = function() {
 };
 delayStream.pipe(process.stdout);
 
- */
-
 // The setTimeout delay is necessary because the operating system requires some time to send us the relevant signals to close the pipe.
 // The process.stdout.on('error', fn) handler is also necessary because the operating system will send a SIGPIPE to our
 // process when head is no longer interested in our program's output, which gets emitted as an EPIPE error on process.stdout.
@@ -55,25 +53,8 @@ delayStream.pipe(process.stdout);
 // If you want to create a readable stream that pushes arbitrary values instead of just strings and buffers, make sure to create your readable stream with Readable({ objectMode: true }).
 
 // Consuming a Readable Stream
-const buildDex = async(entries) => { return nerds.resolve('Pokemon', entries).asArray(); };
-
-cli.question('How many entries do you want in your pokedex?  ', async(amount) => {
-  const pokedex = await buildDex(parseInt(amount, 10));
-
-  const dexStream = new Readable;
-  let count = 0;
-  dexStream._read = function() {
-    if (count >= pokedex.length){return dexStream.push(null)}
-    setTimeout(function () {
-      dexStream.push(`\n ${count + 1}/${amount}: ${JSON.stringify(pokedex[count], null, 2)}`);
-      count++
-    }, 1200);
-  };
-  dexStream.pipe(process.stdout);
-});
-
 
 process.on('exit', function() {
-  console.error('\n done?');
+  console.error('\n_read() called ' + (delayedCount - 97) + ' times');
 });
 process.stdout.on('error', process.exit);
