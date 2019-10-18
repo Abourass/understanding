@@ -29,3 +29,24 @@ null
 // When the stream is finished, .read() returns null because there are no more bytes to fetch.
 // You can also tell .read(n) to return n bytes of data. Reading a number of bytes is merely
 // advisory and does not work for object streams, but all the core streams support it.
+
+// Here's an example of used a .read(n) to buffer stdin into 3-byte chunks:
+
+/* Comment out the top function then uncomment this one to try it out
+process.stdin.on('readable', function () {
+    const buffer = process.stdin.read(3);
+    console.dir(buffer);
+});
+ */
+
+// Running this example gives us incomplete data.
+// This is because there is extra data left in internal buffers, and we need to give Node.js a "kick" to tell it
+// that we are interested in more data past the 3 bytes that we've already read. A simple .read(0) will do this:
+
+/*
+process.stdin.on('readable', function () {
+    const buffer = process.stdin.read(3);
+    console.dir(buffer);
+    process.stdin.read(0)
+});
+ */
