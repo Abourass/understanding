@@ -1,3 +1,7 @@
+// Readable Streams
+// Readable Streams produce data that can be fed into a writeable, transform, or duplex stream by calling .pipe() -> readableStream.pipe(dst)
+const Readable = require('stream').Readable;
+
 const cli = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
