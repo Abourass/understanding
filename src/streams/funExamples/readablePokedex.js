@@ -2,8 +2,6 @@ const cli = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-const fs = require('fs');
 const nerds = require('nerds');
 
 const buildDex = async(entries) => { return nerds.resolve('Pokemon', entries).asArray(); };
@@ -21,7 +19,7 @@ cli.question('How many entries do you want in your pokedex?  ', async(amount) =>
     }, 1200);
   };
   dexStream.pipe(process.stdout);
+  process.exit();
 });
 
 
-process.exit();
