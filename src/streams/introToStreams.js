@@ -24,6 +24,17 @@
  *  This is because in the HTTP case, we basically read from one object (http.IncomingMessage) and write to the other (http.ServerResponse).
  *  Also note how the stdio streams (stdin, stdout, stderr) have the inverse stream types when it comes to child processes.
  *  This allows for a really easy way to pipe to, and from, these child process stdio streams using the main process stdio streams.
+ *  There are 5 kinds of streams:
+ *  readable, writable, duplex, transform, and "classic"
+ *
+ *  Pipe
+ *  All the different types of streams use `.pipe()` to pair inputs with outputs.
+ *  'pipe()' is just a function that takes a readable stream `src` and hooks the output to a destination writable stream 'dst'
+ *  Example:
+ *  src.pipe(dst)
+ *  .pipe(dst) returns `dst`, so you can chain multiple `.pipe()` together
+ *  Example:
+ *  a.pipe(b).pipe(c).pipe(d);
  */
 
 // Theory is great but not 100% convincing. Let's make an example to show how streams handling of memory consumption is so useful.
@@ -46,15 +57,3 @@ Kindling the energy hidden in matter vanquish the impossible worldlets a billion
 Citizens of distant epochs encyclopaedia galactica billions upon billions Cambrian explosion Tunguska event astonishment. Kindling the energy hidden in matter network of wormholes Vangelis at the edge of forever stirred by starlight emerged into consciousness. Vanquish the impossible the carbon in our apple pies dream of the mind's eye courage of our questions ship of the imagination courage of our questions? The carbon in our apple pies courage of our questions hundreds of thousands the sky calls to us the sky calls to us invent the universe and billions upon billions upon billions upon billions upon billions upon billions upon billions.`)
 }
 file.end();
-
-// There are 5 kinds of streams:
-// readable, writable, duplex, transform, and "classic"
-
-// Pipe
-// All the different types of streams use `.pipe()` to pair inputs with outputs.
-// 'pipe()' is just a function that takes a readable stream `src` and hooks the output to a destination writable stream 'dst'
-// Example:
-// src.pipe(dst)
-// .pipe(dst) returns `dst`, so you can chain multiple `.pipe()` together
-// Example:
-// a.pipe(b).pipe(c).pipe(d);
